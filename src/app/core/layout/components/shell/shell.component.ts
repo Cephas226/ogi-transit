@@ -10,8 +10,8 @@ import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { AuthService } from '../../../auth/services/auth.service';
-import { NotificationService } from '../../../services/notification.service';
+import { AuthService } from '@core/auth/services/auth.service';
+import { NotificationService } from '@core/services/notification.service';
 
 @Component({
   selector: 'app-shell',

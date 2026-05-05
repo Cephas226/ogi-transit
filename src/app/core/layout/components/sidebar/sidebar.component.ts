@@ -6,8 +6,8 @@ import {
 } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../../auth/services/auth.service';
-import { ROLE_LABELS } from '../../../auth/models/auth.models';
+import { AuthService } from '@core/auth/services/auth.service';
+import { ROLE_LABELS } from '@core/auth/models/auth.models';
 
 interface NavItem {
   readonly label: string;
