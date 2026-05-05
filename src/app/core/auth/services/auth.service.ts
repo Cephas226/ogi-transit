@@ -8,15 +8,12 @@ import {
   AuthState,
   AuthTokens,
   LoginResponse,
-  ROLE_HIERARCHY,
   User,
   UserRole,
+  ROLE_HIERARCHY,
 } from '../models/auth.models';
 import { environment } from '../../../../environments/environment';
-import {
-  MOCK_CREDENTIALS,
-  MOCK_USERS,
-} from '../../../infrastructure/mock-data/auth.mock';
+import { MOCK_CREDENTIALS, MOCK_USERS } from '../../../infrastructure/mock-data/auth.mock';
 
 const STORAGE_KEYS = {
   ACCESS_TOKEN: 'ogi_access_token',
@@ -59,7 +56,7 @@ export class AuthService {
       .post<LoginResponse>(`${environment.apiUrl}/auth/login/`, credentials)
       .pipe(
         tap((res) => this.handleLoginSuccess(res)),
-        catchError((err) => {
+        catchError((err: { error?: { detail?: string } }) => {
           this._state.update((s) => ({
             ...s,
             isLoading: false,
@@ -72,7 +69,7 @@ export class AuthService {
 
   logout(): void {
     this.clearSession();
-    this.router.navigate(['/auth/login']);
+    void this.router.navigate(['/auth/login']);
   }
 
   hasRole(requiredRoles: UserRole[]): boolean {
@@ -117,7 +114,11 @@ export class AuthService {
       return throwError(() => new Error('Invalid credentials'));
     }
 
-    const user = MOCK_USERS.find((u) => u.email === credentials.email)!;
+    const user = MOCK_USERS.find((u) => u.email === credentials.email);
+    if (!user) {
+      return throwError(() => new Error('User not found'));
+    }
+
     const response: LoginResponse = {
       user,
       tokens: {
@@ -153,7 +154,7 @@ export class AuthService {
 
     if (token && userJson) {
       try {
-        const user: User = JSON.parse(userJson);
+        const user = JSON.parse(userJson) as User;
         this._state.update((s) => ({
           ...s,
           user,

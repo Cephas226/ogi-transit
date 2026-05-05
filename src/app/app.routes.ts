@@ -9,9 +9,7 @@ export const appRoutes: Routes = [
       {
         path: 'login',
         loadComponent: () =>
-          import('./features/auth/login/login.component').then(
-            (m) => m.LoginComponent,
-          ),
+          import('./features/auth/login/login.component').then((m) => m.LoginComponent),
       },
       { path: '', redirectTo: 'login', pathMatch: 'full' },
     ],
@@ -20,76 +18,56 @@ export const appRoutes: Routes = [
     path: '',
     canActivate: [authGuard],
     loadComponent: () =>
-      import('./core/layout/components/shell/shell.component').then(
-        (m) => m.ShellComponent,
-      ),
+      import('./core/layout/components/shell/shell.component').then((m) => m.ShellComponent),
     children: [
       {
         path: 'dashboard',
         loadComponent: () =>
-          import('./features/dashboard/pages/dashboard.component').then(
-            (m) => m.DashboardComponent,
-          ),
+          import('./features/dashboard/pages/dashboard.component').then((m) => m.DashboardComponent),
       },
       {
         path: 'conteneurs',
         loadChildren: () =>
-          import('./features/conteneurs/conteneurs.routes').then(
-            (m) => m.conteneursRoutes,
-          ),
+          import('./features/conteneurs/conteneurs.routes').then((m) => m.conteneursRoutes),
       },
       {
         path: 'clients',
-        loadChildren: () =>
-          import('./features/clients/clients.routes').then(
-            (m) => m.clientsRoutes,
-          ),
+        loadComponent: () =>
+          import('./features/dashboard/pages/dashboard.component').then((m) => m.DashboardComponent),
       },
       {
         path: 'factures',
-        loadChildren: () =>
-          import('./features/factures/factures.routes').then(
-            (m) => m.facturesRoutes,
-          ),
+        loadComponent: () =>
+          import('./features/dashboard/pages/dashboard.component').then((m) => m.DashboardComponent),
       },
       {
         path: 'fournisseurs',
-        loadChildren: () =>
-          import('./features/fournisseurs/fournisseurs.routes').then(
-            (m) => m.fournisseursRoutes,
-          ),
+        loadComponent: () =>
+          import('./features/dashboard/pages/dashboard.component').then((m) => m.DashboardComponent),
       },
       {
         path: 'caisses',
         canActivate: [roleGuard],
         data: { roles: ['ADMIN', 'PDG', 'GERANT', 'FINANCE'] },
-        loadChildren: () =>
-          import('./features/caisses/caisses.routes').then(
-            (m) => m.caissesRoutes,
-          ),
+        loadComponent: () =>
+          import('./features/dashboard/pages/dashboard.component').then((m) => m.DashboardComponent),
       },
       {
         path: 'decaissements',
-        loadChildren: () =>
-          import('./features/decaissements/decaissements.routes').then(
-            (m) => m.decaissementsRoutes,
-          ),
+        loadComponent: () =>
+          import('./features/dashboard/pages/dashboard.component').then((m) => m.DashboardComponent),
       },
       {
         path: 'notes-de-frais',
-        loadChildren: () =>
-          import('./features/notes-de-frais/notes-de-frais.routes').then(
-            (m) => m.notesDefraisRoutes,
-          ),
+        loadComponent: () =>
+          import('./features/dashboard/pages/dashboard.component').then((m) => m.DashboardComponent),
       },
       {
         path: 'rapports',
         canActivate: [roleGuard],
         data: { roles: ['ADMIN', 'PDG', 'GERANT', 'FINANCE'] },
-        loadChildren: () =>
-          import('./features/rapports/rapports.routes').then(
-            (m) => m.rapportsRoutes,
-          ),
+        loadComponent: () =>
+          import('./features/dashboard/pages/dashboard.component').then((m) => m.DashboardComponent),
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],

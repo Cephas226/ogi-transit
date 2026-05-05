@@ -1,17 +1,9 @@
-import {
-  HttpInterceptorFn,
-  HttpRequest,
-  HttpHandlerFn,
-  HttpErrorResponse,
-} from '@angular/common/http';
+import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, switchMap, throwError } from 'rxjs';
-import { AuthService } from '@core/auth/services/auth.service';
+import { AuthService } from '../services/auth.service';
 
-export const jwtInterceptor: HttpInterceptorFn = (
-  req: HttpRequest<unknown>,
-  next: HttpHandlerFn,
-) => {
+export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const token = authService.getAccessToken();
 
@@ -29,7 +21,7 @@ export const jwtInterceptor: HttpInterceptorFn = (
             });
             return next(retryReq);
           }),
-          catchError((refreshError) => {
+          catchError((refreshError: unknown) => {
             authService.logout();
             return throwError(() => refreshError);
           }),

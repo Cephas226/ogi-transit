@@ -41,9 +41,7 @@ export class NotificationService {
       message,
       duration,
     };
-
     this._notifications.update((ns) => [...ns, notification]);
-
     if (duration > 0) {
       setTimeout(() => this.dismiss(notification.id), duration);
     }

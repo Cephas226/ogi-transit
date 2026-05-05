@@ -2,41 +2,103 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --ogi-dark: #1a1e2e;
-  --ogi-darker: #131622;
-  --ogi-orange: #e85d2f;
-  --ogi-bg: #f0ede8;
+/* ─── BASE RESET ─────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 13px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #1a1e2e;
+    background-color: #f0ede8;
+  }
+
+  ::-webkit-scrollbar       { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.22); }
 }
 
-* {
-  box-sizing: border-box;
+/* ─── COMPONENT LAYER ────────────────────────────────────── */
+@layer components {
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2
+           font-medium rounded-lg transition-colors
+           focus-visible:outline-none focus-visible:ring-2
+           focus-visible:ring-offset-1 disabled:opacity-50
+           disabled:cursor-not-allowed;
+  }
+  .btn-sm  { @apply text-xs   px-3   py-1.5; }
+  .btn-md  { @apply text-sm   px-3.5 py-2;   }
+  .btn-lg  { @apply text-base px-4   py-2.5; }
+
+  .btn-primary   { @apply bg-primary text-white hover:bg-primary-hover focus-visible:ring-primary; }
+  .btn-secondary { @apply bg-surface text-ink border border-black/10 hover:bg-surface-subtle focus-visible:ring-ink/20; }
+  .btn-ghost     { @apply bg-transparent text-ink-secondary hover:bg-black/5 focus-visible:ring-ink/20; }
+  .btn-danger    { @apply bg-danger text-white hover:bg-danger-dark focus-visible:ring-danger; }
+
+  /* Cards */
+  .card {
+    @apply bg-surface rounded-2xl border border-black/[0.07] shadow-card;
+  }
+  .card-padded { @apply card p-5; }
+
+  /* Table */
+  .data-table            { @apply w-full border-collapse; }
+  .data-table thead tr   { @apply bg-surface-muted; }
+  .data-table th         { @apply text-left px-5 py-2.5 text-2xs font-semibold uppercase tracking-wider text-ink-muted border-b border-black/[0.06]; }
+  .data-table td         { @apply px-5 py-3 border-b border-black/[0.05]; }
+  .data-table tbody tr   { @apply transition-colors hover:bg-surface-muted; }
+  .data-table tbody tr:last-child td { @apply border-b-0; }
+
+  /* Badges */
+  .badge {
+    @apply inline-flex items-center gap-1 text-2xs font-semibold
+           px-2 py-0.5 rounded-full leading-none;
+  }
+  .badge-success { @apply bg-success-light text-success-dark; }
+  .badge-warning { @apply bg-warning-light text-warning-dark; }
+  .badge-danger  { @apply bg-danger-light  text-danger-dark;  }
+  .badge-info    { @apply bg-info-light    text-info-dark;    }
+  .badge-neutral { @apply bg-black/[0.06]  text-ink-secondary; }
+  .badge-primary { @apply bg-primary-light text-primary-dark; }
+
+  /* Status dot + label */
+  .status-dot { @apply w-2 h-2 rounded-full flex-shrink-0; }
+
+  /* Form inputs */
+  .field-label {
+    @apply block text-2xs font-semibold uppercase tracking-wider
+           text-ink-muted mb-1.5;
+  }
+  .field-input {
+    @apply w-full px-3 py-2.5 text-sm bg-surface
+           border border-black/10 rounded-lg outline-none
+           transition-colors placeholder:text-ink-disabled
+           focus:border-primary focus:ring-2 focus:ring-primary/10;
+  }
+  .field-input-error { @apply border-danger focus:border-danger focus:ring-danger/10; }
+
+  /* Section headers */
+  .section-title { @apply text-lg font-bold text-ink; }
+  .section-subtitle { @apply text-xs text-ink-muted; }
+
+  /* Page layout */
+  .page-header {
+    @apply flex items-center justify-between mb-5;
+  }
+  .page-content { @apply space-y-5; }
 }
 
-html,
-body {
-  height: 100%;
-  margin: 0;
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  font-size: 13px;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.15);
-  border-radius: 2px;
-}
-
-/* Sidebar nav active state */
-.nav-active {
-  background-color: var(--ogi-orange) !important;
-  color: white !important;
+/* ─── UTILITY LAYER ──────────────────────────────────────── */
+@layer utilities {
+  .text-balance  { text-wrap: balance; }
+  .scrollbar-hide { scrollbar-width: none; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
 }

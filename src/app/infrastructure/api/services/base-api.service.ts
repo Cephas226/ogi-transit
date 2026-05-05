@@ -10,13 +10,7 @@ export interface PaginatedResponse<T> {
   readonly previous: string | null;
 }
 
-export interface QueryParams {
-  page?: number;
-  pageSize?: number;
-  ordering?: string;
-  search?: string;
-  [key: string]: string | number | boolean | undefined;
-}
+export type QueryParams = Record<string, string | number | boolean | undefined>;
 
 @Injectable({ providedIn: 'root' })
 export abstract class BaseApiService {
@@ -46,7 +40,7 @@ export abstract class BaseApiService {
     return this.http.put<T>(`${this.baseUrl}${path}`, body);
   }
 
-  protected patch<T, B = Partial<unknown>>(path: string, body: B): Observable<T> {
+  protected patch<T, B = unknown>(path: string, body: B): Observable<T> {
     return this.http.patch<T>(`${this.baseUrl}${path}`, body);
   }
 

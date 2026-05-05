@@ -1,5 +1,5 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { DashboardData } from '../models/dashboard.models';
+import type { DashboardData } from '../models/dashboard.models';
 
 interface DashboardState {
   readonly data: DashboardData | null;
@@ -11,25 +11,19 @@ interface DashboardState {
 @Injectable({ providedIn: 'root' })
 export class DashboardStore {
   private readonly _state = signal<DashboardState>({
-    data: null,
-    isLoading: false,
-    error: null,
-    lastFetched: null,
+    data: null, isLoading: false, error: null, lastFetched: null,
   });
 
-  readonly state = this._state.asReadonly();
-  readonly data = computed(() => this._state().data);
+  readonly data      = computed(() => this._state().data);
   readonly isLoading = computed(() => this._state().isLoading);
-  readonly error = computed(() => this._state().error);
-  readonly caisses = computed(() => this._state().data?.caisses ?? []);
-  readonly cargoBalances = computed(() => this._state().data?.cargoBalances ?? []);
-  readonly kpis = computed(() => this._state().data?.kpis ?? null);
-  readonly recentConteneurs = computed(() => this._state().data?.recentConteneurs ?? []);
-
-  readonly isStale = computed(() => {
-    const lastFetched = this._state().lastFetched;
-    if (!lastFetched) return true;
-    return Date.now() - lastFetched > 5 * 60 * 1000;
+  readonly error     = computed(() => this._state().error);
+  readonly caisses   = computed(() => this._state().data?.caisses ?? []);
+  readonly cargoBalances     = computed(() => this._state().data?.cargoBalances ?? []);
+  readonly kpis              = computed(() => this._state().data?.kpis ?? null);
+  readonly recentConteneurs  = computed(() => this._state().data?.recentConteneurs ?? []);
+  readonly isStale   = computed(() => {
+    const lf = this._state().lastFetched;
+    return !lf || (Date.now() - lf > 5 * 60 * 1000);
   });
 
   setLoading(isLoading: boolean): void {
@@ -37,13 +31,7 @@ export class DashboardStore {
   }
 
   setData(data: DashboardData): void {
-    this._state.update((s) => ({
-      ...s,
-      data,
-      isLoading: false,
-      error: null,
-      lastFetched: Date.now(),
-    }));
+    this._state.update((s) => ({ ...s, data, isLoading: false, error: null, lastFetched: Date.now() }));
   }
 
   setError(error: string): void {

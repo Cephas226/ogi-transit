@@ -8,13 +8,7 @@ import { errorInterceptor } from './core/auth/interceptors/error.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZonelessChangeDetection(),
-    provideRouter(
-      appRoutes,
-      withComponentInputBinding(),
-      withViewTransitions(),
-    ),
-    provideHttpClient(
-      withInterceptors([jwtInterceptor, errorInterceptor]),
-    ),
+    provideRouter(appRoutes, withComponentInputBinding(), withViewTransitions()),
+    provideHttpClient(withInterceptors([jwtInterceptor, errorInterceptor])),
   ],
 };

@@ -1,3 +1,5 @@
+export type ConteneurStatut = 'CREE' | 'EN_TRANSIT' | 'ARRIVE' | 'PRET_A_SORTIR' | 'SORTI';
+
 export interface CaisseBalance {
   readonly id: string;
   readonly label: string;
@@ -45,13 +47,6 @@ export interface RecentConteneur {
   readonly solde: boolean;
   readonly reste?: number;
 }
-
-export type ConteneurStatut =
-  | 'CREE'
-  | 'EN_TRANSIT'
-  | 'ARRIVE'
-  | 'PRET_A_SORTIR'
-  | 'SORTI';
 
 export interface DashboardData {
   readonly caisses: CaisseBalance[];
