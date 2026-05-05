@@ -46,7 +46,7 @@ import { NouveauConteneurComponent } from '../form/nouveau-conteneur.component';
   template: `
     <!-- ── Stats row ──────────────────────────────────────────────── -->
     <div class="grid grid-cols-4 gap-3 mb-5">
-      @for (stat of statsCards; track stat.label) {
+      @for (stat of statsCards(); track stat.label) {
         <div class="card p-4">
           <p class="text-2xs font-semibold uppercase tracking-wider text-ink-muted mb-1">
             {{ stat.label }}
@@ -220,7 +220,7 @@ import { NouveauConteneurComponent } from '../form/nouveau-conteneur.component';
             @for (p of pages(); track p) {
               <button
                 class="w-7 h-7 flex items-center justify-center rounded-md text-xs transition-colors"
-                [class]="p === facade.page()
+                [class]="facade.page() === p
                   ? 'bg-primary text-white font-semibold'
                   : 'text-ink-secondary hover:bg-surface-subtle'"
                 (click)="facade.setPage(p)"

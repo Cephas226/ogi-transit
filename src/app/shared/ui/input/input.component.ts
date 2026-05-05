@@ -82,8 +82,10 @@ export class InputComponent implements ControlValueAccessor {
   @Input() optional = false;
   @Input() prefixIcon = false;
   @Input() suffixIcon = false;
+  @Input() set value(val: string) { this._value = val; }
+  get value(): string { return this._value; }
 
-  value = '';
+  private _value = '';
   isDisabled = false;
 
   private onChange: (v: string) => void = () => {};
@@ -102,11 +104,11 @@ export class InputComponent implements ControlValueAccessor {
 
   onInput(event: Event): void {
     const val = (event.target as HTMLInputElement).value;
-    this.value = val;
+    this._value = val;
     this.onChange(val);
   }
 
-  writeValue(val: string): void     { this.value = val ?? ''; }
+  writeValue(val: string): void     { this._value = val ?? ''; }
   registerOnChange(fn: (v: string) => void): void { this.onChange = fn; }
   registerOnTouched(fn: () => void): void          { this.onTouched = fn; }
   setDisabledState(disabled: boolean): void        { this.isDisabled = disabled; }
