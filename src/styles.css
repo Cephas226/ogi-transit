@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ogi-dark: #1a1e2e;
+  --ogi-darker: #131622;
+  --ogi-orange: #e85d2f;
+  --ogi-bg: #f0ede8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+}
+
+/* Sidebar nav active state */
+.nav-active {
+  background-color: var(--ogi-orange) !important;
+  color: white !important;
+}
