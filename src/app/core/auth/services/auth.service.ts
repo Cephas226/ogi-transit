@@ -8,6 +8,7 @@ import {
   AuthState,
   AuthTokens,
   LoginResponse,
+  ROLE_HIERARCHY,
   User,
   UserRole,
 } from '../models/auth.models';
@@ -81,7 +82,6 @@ export class AuthService {
   }
 
   hasMinimumRole(minimumRole: UserRole): boolean {
-    const { ROLE_HIERARCHY } = require('../models/auth.models');
     const role = this.currentRole();
     if (!role) return false;
     return ROLE_HIERARCHY[role] >= ROLE_HIERARCHY[minimumRole];
